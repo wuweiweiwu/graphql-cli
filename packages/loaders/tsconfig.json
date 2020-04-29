@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "skipLibCheck": true,
-    "esModuleInterop": true,
     "importHelpers": true,
     "experimentalDecorators": true,
     "module": "commonjs",
@@ -20,6 +19,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": false
   },
-  "include": ["src"],
+  "files": ["src/index.ts"],
   "exclude": ["node_modules"]
 }
