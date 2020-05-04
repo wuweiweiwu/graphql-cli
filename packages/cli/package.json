@@ -16,6 +16,7 @@
   "dependencies": {
     "@test-graphql-cli/common": "4.0.1-beta.6",
     "@test-graphql-cli/init": "4.0.1-beta.6",
+    "open": "7.0.3",
     "globby": "11.0.0",
     "graphql-config": "3.0.1"
   }

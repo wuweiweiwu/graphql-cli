@@ -2,6 +2,7 @@ import yargs from 'yargs';
 import globby from 'globby';
 import { join } from 'path';
 import { CommandFactory, useConfig } from '@test-graphql-cli/common';
+import discover from './discover';
 
 export async function cli(): Promise<void> {
   const program = yargs
@@ -13,7 +14,7 @@ export async function cli(): Promise<void> {
   const commandPackageNames = await discoverCommands();
   const commandFactories = await Promise.all(commandPackageNames.map(loadCommand));
 
-  commandFactories.forEach((cmd) => {
+  [discover, ...commandFactories].forEach((cmd) => {
     program.command(
       cmd({
         useConfig,
@@ -25,14 +26,14 @@ export async function cli(): Promise<void> {
 }
 
 async function discoverCommands() {
-  const discoveredCommands = await globby('*', {
+  const commandNames = await globby('*', {
     cwd: join(process.cwd(), 'node_modules/@test-graphql-cli'),
     onlyDirectories: true,
     deep: 1,
     ignore: ['common'],
   });
 
-  return discoveredCommands;
+  return commandNames;
 }
 
 function loadCommand(name: string): CommandFactory {
